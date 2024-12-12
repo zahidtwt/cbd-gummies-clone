@@ -1,0 +1,47 @@
+.product-card-right-header {
+  background-color: #5a266e;
+  color: white;
+}
+
+.product-card-right-header::before {
+  background-color: #5a266e;
+  content: "";
+  display: block;
+  clear: both;
+  width: 45px;
+  height: 85px;
+  position: absolute;
+  top: 1px;
+  left: -39px;
+  transform: rotate(49deg);
+}
+
+.checkMarkArea {
+  position: absolute;
+  /* 
+     top: 0;
+     right: 0;
+     width: 50px;
+     height: 50px;
+     background-color: #5a266e;
+     color: white;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 0 0 0 10px;
+     transform: rotate(45deg); */
+}
+
+.checkMarkArea::before {
+  content: "";
+  display: block;
+  clear: both;
+  width: 60px;
+  height: 85px;
+  position: absolute;
+  top: -50px;
+  left: 8px;
+  /* transform: rotate(49deg); */
+  background-image: url("done-icon.png");
+  background-repeat: no-repeat;
+}

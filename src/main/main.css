@@ -1,0 +1,18 @@
+.main-bg-image {
+  /* background-image: "../public/images/bg.jpg"; */
+  background-image: url("background2.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+header::before {
+  content: "";
+  width: 112px;
+  height: 112px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("verify-icon.svg");
+  background-size: contain;
+}
