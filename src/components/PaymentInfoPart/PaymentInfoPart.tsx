@@ -12,7 +12,7 @@ const PaymentInfoPart = () => {
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-t-md border border-gray-400 bg-white pb-5">
+    <div className="w-full overflow-hidden rounded-t-md border border-gray-400 bg-white pb-5 mb-6">
       <div className="rounded-md text center p-4 bg-orange-500">
         <h5 className="font-[700] text-[40px] text-white leading-7 text-center mb-4">
           FINAL STEP:

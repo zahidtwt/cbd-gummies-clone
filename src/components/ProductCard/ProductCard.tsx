@@ -1,7 +1,7 @@
 import "./ProductCard.css";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
-import { IProduct } from "../MainLeftContent/MainLeftContent";
+import { IProduct } from "../../main/Main";
 
 const ProductCard = ({
   productData,
@@ -10,7 +10,8 @@ const ProductCard = ({
 }: {
   productData: IProduct;
   isChecked: boolean;
-  setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct>>;
+  // setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct>>;
+  setSelectedProduct: (data: IProduct) => void;
 }) => {
   return (
     <div
@@ -18,41 +19,33 @@ const ProductCard = ({
       onClick={() => setSelectedProduct(productData)}
     >
       <div className="overflow-hidden flex">
-        <div className="w-[68%] p-3 bg-orange-400 flex align-middle justify-start">
-          <h6 className="font-[700] font-sans text-[27px] text-start text-white">
+        <div className="w-[62%] lg:w-[68%] p-1 bg-orange-400 flex items-center justify-start">
+          <h6 className="font-[500] lg:font-[700] font-sans text-xl lg:text-3xl text-start text-white">
             BUY 3 GET 3 FREE
           </h6>
         </div>
 
-        <div className="w-[32%] p-3 flex justify-center align-middle product-card-right-header relative z-10">
+        <div className="w-[38%] lg:w-[32%] p-1 flex justify-center items-center product-card-right-header relative z-10">
           <img
-            className="h-[23px] w-[28px] z-20 mr-3"
+            className="w-[20px] z-20 mr-1 lg:mr-3"
             src="box-icon.svg"
             alt=""
           />
-          <h6 className="font-[700] font-sans text-[18px] z-20">
+          <h6 className="font-[400] lg:font-[700] font-sans text-md lg:text-lg z-20">
             FREE SHIPPING
           </h6>
         </div>
       </div>
       <div className="relative">
-        <div>
-          <div className="flex justify-between ps-14 pe-4 py-4">
-            <div className="flex justify-start items-center gap-2">
-              <img
-                className="w-[160px]"
-                src={productData.gummiesImage}
-                alt=""
-              />
-              <FaPlusCircle size={28} />
-              <img
-                className="w-[160px]"
-                src={productData.gummiesImage}
-                alt=""
-              />
-            </div>
-            <div className="text-center">
-              <h6 className="text-red-600 font-[500] text-[18px] leading-10">
+        <div className="flex justify-between ps-2 lg:ps-14 pe-1 lg:pe-4 py-4 gap-2">
+          <div className="flex flex-col lg:flex-row justify-start items-center gap-2">
+            <img className="w-[160px]" src={productData.gummiesImage} alt="" />
+            <FaPlusCircle size={28} />
+            <img className="w-[160px]" src={productData.gummiesImage} alt="" />
+          </div>
+          <div className="text-center flex items-center justify-center">
+            <div>
+              <h6 className="text-red-600 font-[500] text-[18px] leading-5">
                 <i>{productData.title}</i>
               </h6>
               <h3 className="font-oswald font-[400] text-[36px] leading-10 underline">
@@ -77,9 +70,11 @@ const ProductCard = ({
             </div>
           </div>
         </div>
-        <div className="absolute top-0 left-0 right-0 bottom-0">
+        <div className="absolute top-0 left-0 right-0 bottom-0  hidden lg:block">
           <div className="h-full flex items-center">
-            <div className={`${isChecked ? "checkMarkArea" : ""}`}>
+            <div
+              className={`${isChecked ? "checkMarkArea" : ""} hidden lg:block`}
+            >
               <FaRegCircle size={32} className="ms-3" color="#63aee4" />
             </div>
 
