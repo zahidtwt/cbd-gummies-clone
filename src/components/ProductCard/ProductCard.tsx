@@ -7,11 +7,13 @@ const ProductCard = ({
   productData,
   isChecked,
   setSelectedProduct,
+  timeLeft,
 }: {
   productData: IProduct;
   isChecked: boolean;
   // setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct>>;
   setSelectedProduct: (data: IProduct) => void;
+  timeLeft: string;
 }) => {
   return (
     <div
@@ -21,7 +23,7 @@ const ProductCard = ({
       <div className="overflow-hidden flex">
         <div className="w-[62%] lg:w-[68%] p-1 bg-orange-400 flex items-center justify-start">
           <h6 className="font-[500] lg:font-[700] font-sans text-xl lg:text-3xl text-start text-white">
-            BUY 3 GET 3 FREE
+            {productData.heading}
           </h6>
         </div>
 
@@ -38,25 +40,35 @@ const ProductCard = ({
       </div>
       <div className="relative">
         <div className="flex justify-between ps-2 lg:ps-14 pe-1 lg:pe-4 py-4 gap-2">
-          <div className="flex flex-col lg:flex-row justify-start items-center gap-2">
-            <img className="w-[160px]" src={productData.gummiesImage} alt="" />
+          <div className="flex flex-col lg:flex-row justify-start items-center gap-2 w-[50%] lg:w-[65%]">
+            <img
+              className="w-[90px] lg:w-[160px]"
+              src={productData.gummiesImage}
+              alt=""
+            />
             <FaPlusCircle size={28} />
-            <img className="w-[160px]" src={productData.gummiesImage} alt="" />
+            <img
+              className="w-[90px] lg:w-[160px]"
+              src={productData.gummiesImage}
+              alt=""
+            />
           </div>
-          <div className="text-center flex items-center justify-center">
+          <div className="text-center flex items-center justify-center w-[50%] lg:w-[35%]">
             <div>
               <h6 className="text-red-600 font-[500] text-[18px] leading-5">
                 <i>{productData.title}</i>
               </h6>
               <h3 className="font-oswald font-[400] text-[36px] leading-10 underline">
-                {productData.price}
+                {productData.promoPricePerBottle}
               </h3>
               <small className="font-oswald font-[400] text-[14px] leading-7">
                 bottle
               </small>
               <p className="font-oswald font-[600] text-[14px]">
                 Retail -{" "}
-                <span className="line-through">{productData.retailPrice}</span>
+                <span className="line-through">
+                  {productData.retailPricePerBottle}
+                </span>
               </p>
               {isChecked ? (
                 <button className="text-white font-bold bg-orange-400 px-6 py-2 rounded-md text-[18px]">
@@ -83,8 +95,19 @@ const ProductCard = ({
                 <img className="w-[130px]" src="package-save.svg" alt="" />
                 <div className="relative bottom-[94px] left-[0px] text-center">
                   <h6 className="font-oswald text-[24px] leading-9">SAVE</h6>
-                  <p className="font-oswald text-[19px]">$74.95</p>
+                  <p className="font-oswald text-[19px]">
+                    {productData.savePrice}
+                  </p>
                 </div>
+              </div>
+            )}
+
+            {productData.showTimeLeft && (
+              <div className="absolute bottom-0 right-0 left-0 bg-transparent text-center">
+                <p className="font-oswald text-[14px] leading-5 font-bold mr-20">
+                  Acceptance of applications ends in:{" "}
+                  <span className="text-red-500">{timeLeft}</span>
+                </p>
               </div>
             )}
           </div>

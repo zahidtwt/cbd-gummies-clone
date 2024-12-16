@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainLeftContent from "../components/MainLeftContent/MainLeftContent";
 import PaymentInfoPart from "../components/PaymentInfoPart/PaymentInfoPart";
 import "./main.css";
@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 export interface IProduct {
   id: number;
@@ -17,50 +18,60 @@ export interface IProduct {
   showSavePrice: boolean;
   savePrice: string;
   title: string;
-  price: string;
   retailPrice: string;
-  image: string;
+  promoPrice: string;
+  retailPricePerBottle: string;
+  promoPricePerBottle: string;
+  showTimeLeft?: boolean;
 }
 
 const Main = () => {
+  const { toast } = useToast();
+
   const productList: IProduct[] = [
     {
       id: 3,
-      heading: "BUY 3 GET 3 FREE",
-      gummiesImage: "3bottles.png",
+      heading: "Buy 4 Get 4 Free",
+      gummiesImage: "./assets/Gummies/greenapple_gummy_bag_pc.png",
       showSavePrice: true,
-      savePrice: "$132.45",
-      title: "6 Month CBD Relief Pack",
-      price: "$39.99",
-      retailPrice: "$66.64",
-      image: "3bottles.png",
+      savePrice: "$174.77",
+      title: "Indead of 6 motnh cbd relief pack >> 28g Premium THCA Flower",
+      retailPrice: "$399.76", //399.76
+      promoPrice: "$224.99", //399.76
+      retailPricePerBottle: "$49.97",
+      promoPricePerBottle: "$28.12",
+      showTimeLeft: true,
     },
     {
       id: 2,
-      heading: "BUY 2 GET 2 FREE",
-      gummiesImage: "2bottles.png",
+      heading: "Buy 2 Get 2 Free",
+      gummiesImage: "./assets/Gummies/strawberry_gummy_bag_pc.png",
       showSavePrice: true,
-      savePrice: "$74.95",
-      title: "4 Month CBD Relief Pack",
-      price: "$47.49",
-      retailPrice: "$74.95",
-      image: "2bottles.png",
+      savePrice: "$54.89",
+      title: "Indead of 4 motnh cbd relief pack >> 14g Premium THCA Flower",
+      retailPrice: "$199.88",
+      promoPrice: "$144.99", //399.76
+      retailPricePerBottle: "$49.97",
+      promoPricePerBottle: "$36.25",
+      showTimeLeft: false,
     },
     {
       id: 1,
-      heading: "BUY 1 GET 1 FREE",
-      gummiesImage: "1bottle.png",
+      heading: "Buy 1 Get 1 Free",
+      gummiesImage: "./assets/Gummies/watermelon_gummy_bag_pc.png",
       showSavePrice: false,
-      savePrice: "",
-      title: "2 Month CBD Relief Pack",
-      price: "$64.99",
-      retailPrice: "$79.99",
-      image: "1bottle.png",
+      savePrice: "24.95",
+      title: "Indead of 2 motnh cbd relief pack >> 7g Premium THCA Flower",
+      retailPrice: "$99.94",
+      promoPrice: "$74.99", //399.76
+      retailPricePerBottle: "$49.97",
+      promoPricePerBottle: "$37.50",
+      showTimeLeft: false,
     },
   ];
 
-  const [selectedProduct, setSelectedProduct] = useState<IProduct>(
-    productList[0]
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(
+    window.innerWidth > 1024 ? productList[0] : null
   );
   const [step, setStep] = useState(1);
   const [isMobile] = useState(window.innerWidth < 1024);
@@ -73,33 +84,6 @@ const Main = () => {
     setSelectedProduct(data);
     setStep(2);
   };
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (window.innerWidth < 1024) {
-  //       // isMobile && setStep(1);
-  //       setIsMobile(true);
-  //     } else {
-  //       // !isMobile && setStep(2);
-  //       setIsMobile(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, [isMobile]);
-
-  // const handleResize = () => {
-  //   if (window.innerWidth < 1024) {
-  //     // isMobile && setStep(1);
-  //     setIsMobile(true);
-  //   } else {
-  //     // !isMobile && setStep(2);
-  //     setIsMobile(false);
-  //   }
-  // };
-
-  // handleResize();
 
   const moods = [
     {
@@ -122,13 +106,83 @@ const Main = () => {
     },
   ];
 
+  useEffect(() => {
+    if (window.innerWidth < 1024) return;
+
+    const intervalId = setInterval(() => {
+      toast({
+        duration: 4000,
+        description: (
+          <div className="flex items-center justify-center gap-4">
+            <img
+              className="w-16 h-auto"
+              src="product-fakesale.png"
+              alt="Product"
+            />
+            <div className="custom-notification-content-wrapper">
+              <p className="custom-notification-content">
+                <span id="notify-customer">Henry Y</span>. -
+                <span id="notify-state">IA</span>
+                <br />
+                Purchased
+                <strong>
+                  <span id="notify-quantity">2</span>
+                </strong>{" "}
+                Bottle(s) of TranquilVibe CBD Gummies{" "}
+                <small>
+                  <span id="notify-ago">13 minutes ago</span>
+                </small>
+              </p>
+            </div>
+          </div>
+        ),
+      });
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  }, [toast]);
+
+  // create a function to count down the time from
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    const timeout = 15;
+    const countDownDate = new Date();
+    countDownDate.setMinutes(countDownDate.getMinutes() + timeout);
+    const timestamp = countDownDate.getTime();
+
+    if (localStorage.getItem("timestamp") == null) {
+      localStorage.setItem("timestamp", timestamp.toString());
+    }
+
+    const intervalId = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = parseInt(localStorage.getItem("timestamp") || "0") - now;
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance < 0) {
+        clearInterval(intervalId);
+        setTimeLeft("Expired");
+      } else {
+        setTimeLeft(
+          `${minutes < 10 ? "0" + minutes : minutes}:${
+            seconds < 10 ? "0" + seconds : seconds
+          }`
+        );
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="max-w-screen main main-bg-image font-poppins text-[14px] leading-4 p-5 lg:p-0">
       <header>
         <p className="text-center text-sm pt-6 lg:pt-0 pl-14 lg:pl-0 pb-3 lg:pb-0">
           <span className="text-[#f00]">Warning:</span> Due to extremely high
           media demand, there is limited supply of TranquilVibe CBD Gummies in
-          stock as of <span className="text-[#f00]">HURRY! Expired</span>
+          stock as of <span className="text-[#f00]">HURRY! {timeLeft}</span>
         </p>
       </header>
 
@@ -163,6 +217,7 @@ const Main = () => {
                   productList={productList}
                   selectedProduct={selectedProduct}
                   setSelectedProduct={updateSelectProduct}
+                  timeLeft={timeLeft}
                 />
               </div>
             )}
@@ -210,7 +265,7 @@ const Main = () => {
                   <div
                     onClick={() => {
                       setIsModalOpen(false);
-                      localStorage.setItem("isTakenFromModalData", "true");
+                      // localStorage.setItem("isTakenFromModalData", "true");
                     }}
                     key={index}
                     className={`${mood.color} rounded-lg shadow-lg w-64 h-36 flex items-center justify-center cursor-pointer`}

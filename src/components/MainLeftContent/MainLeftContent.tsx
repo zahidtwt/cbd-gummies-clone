@@ -5,11 +5,13 @@ const MainLeftContent = ({
   productList,
   selectedProduct,
   setSelectedProduct,
+  timeLeft,
 }: {
   productList: IProduct[];
-  selectedProduct: IProduct;
+  selectedProduct: IProduct | null;
   // setSelectedProduct: React.Dispatch<React.SetStateAction<IProduct>>;
   setSelectedProduct: (data: IProduct) => void;
+  timeLeft: string;
 }) => {
   return (
     <div className="w-full pb-6">
@@ -48,8 +50,9 @@ const MainLeftContent = ({
         <ProductCard
           key={product.id}
           productData={product}
-          isChecked={selectedProduct.id === product.id}
+          isChecked={(selectedProduct?.id || null) === product.id}
           setSelectedProduct={setSelectedProduct}
+          timeLeft={timeLeft}
         />
       ))}
 
