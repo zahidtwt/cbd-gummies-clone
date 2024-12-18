@@ -25,14 +25,14 @@ export interface IProduct {
   showTimeLeft?: boolean;
 }
 
-const productList: IProduct[] = [
+const happyProductList: IProduct[] = [
   {
     id: 3,
     heading: "Buy 4 Get 4 Free",
-    gummiesImage: "./assets/Gummies/greenapple_gummy_bag_pc.png",
+    gummiesImage: "./assets/Happy Triple.png",
     showSavePrice: true,
     savePrice: "$174.77",
-    title: "Indead of 6 motnh cbd relief pack >> 28g Premium THCA Flower",
+    title: "28g Premium THCA Flower",
     retailPrice: "$399.76", //399.76
     promoPrice: "$224.99", //399.76
     retailPricePerBottle: "$49.97",
@@ -42,10 +42,10 @@ const productList: IProduct[] = [
   {
     id: 2,
     heading: "Buy 2 Get 2 Free",
-    gummiesImage: "./assets/Gummies/strawberry_gummy_bag_pc.png",
+    gummiesImage: "./assets/Happy Double.png",
     showSavePrice: true,
     savePrice: "$54.89",
-    title: "Indead of 4 motnh cbd relief pack >> 14g Premium THCA Flower",
+    title: "14g Premium THCA Flower",
     retailPrice: "$199.88",
     promoPrice: "$144.99", //399.76
     retailPricePerBottle: "$49.97",
@@ -55,10 +55,94 @@ const productList: IProduct[] = [
   {
     id: 1,
     heading: "Buy 1 Get 1 Free",
-    gummiesImage: "./assets/Gummies/watermelon_gummy_bag_pc.png",
+    gummiesImage: "./assets/Happy Single.png",
     showSavePrice: false,
     savePrice: "24.95",
-    title: "Indead of 2 motnh cbd relief pack >> 7g Premium THCA Flower",
+    title: "7g Premium THCA Flower",
+    retailPrice: "$99.94",
+    promoPrice: "$74.99", //399.76
+    retailPricePerBottle: "$49.97",
+    promoPricePerBottle: "$37.50",
+    showTimeLeft: false,
+  },
+];
+
+const relaxProductList: IProduct[] = [
+  {
+    id: 3,
+    heading: "Buy 4 Get 4 Free",
+    gummiesImage: "./assets/Relax Triple.png",
+    showSavePrice: true,
+    savePrice: "$174.77",
+    title: "28g Premium THCA Flower",
+    retailPrice: "$399.76", //399.76
+    promoPrice: "$224.99", //399.76
+    retailPricePerBottle: "$49.97",
+    promoPricePerBottle: "$28.12",
+    showTimeLeft: true,
+  },
+  {
+    id: 2,
+    heading: "Buy 2 Get 2 Free",
+    gummiesImage: "./assets/Relax Double.png",
+    showSavePrice: true,
+    savePrice: "$54.89",
+    title: "14g Premium THCA Flower",
+    retailPrice: "$199.88",
+    promoPrice: "$144.99", //399.76
+    retailPricePerBottle: "$49.97",
+    promoPricePerBottle: "$36.25",
+    showTimeLeft: false,
+  },
+  {
+    id: 1,
+    heading: "Buy 1 Get 1 Free",
+    gummiesImage: "./assets/Relax Single.png",
+    showSavePrice: false,
+    savePrice: "24.95",
+    title: "7g Premium THCA Flower",
+    retailPrice: "$99.94",
+    promoPrice: "$74.99", //399.76
+    retailPricePerBottle: "$49.97",
+    promoPricePerBottle: "$37.50",
+    showTimeLeft: false,
+  },
+];
+
+const energyProductList: IProduct[] = [
+  {
+    id: 3,
+    heading: "Buy 4 Get 4 Free",
+    gummiesImage: "./assets/Energy Triple.png",
+    showSavePrice: true,
+    savePrice: "$174.77",
+    title: "28g Premium THCA Flower",
+    retailPrice: "$399.76", //399.76
+    promoPrice: "$224.99", //399.76
+    retailPricePerBottle: "$49.97",
+    promoPricePerBottle: "$28.12",
+    showTimeLeft: true,
+  },
+  {
+    id: 2,
+    heading: "Buy 2 Get 2 Free",
+    gummiesImage: "./assets/Energy Double.png",
+    showSavePrice: true,
+    savePrice: "$54.89",
+    title: "14g Premium THCA Flower",
+    retailPrice: "$199.88",
+    promoPrice: "$144.99", //399.76
+    retailPricePerBottle: "$49.97",
+    promoPricePerBottle: "$36.25",
+    showTimeLeft: false,
+  },
+  {
+    id: 1,
+    heading: "Buy 1 Get 1 Free",
+    gummiesImage: "./assets/Energy Single.png",
+    showSavePrice: false,
+    savePrice: "24.95",
+    title: "7g Premium THCA Flower",
     retailPrice: "$99.94",
     promoPrice: "$74.99", //399.76
     retailPricePerBottle: "$49.97",
@@ -73,18 +157,21 @@ const moods = [
     color: "bg-[#c11f50]",
     textColor: "text-white",
     fontFamily: "font-poppins",
+    productList: happyProductList,
   },
   {
     title: "Relax Blend",
     color: "bg-[#4571cb]",
     textColor: "text-white",
     fontFamily: "font-relax",
+    productList: relaxProductList,
   },
   {
     title: "Energy Blend",
     color: "bg-[#634496]",
     textColor: "text-white",
     fontFamily: "font-energy",
+    productList: energyProductList,
   },
 ];
 
@@ -460,6 +547,7 @@ const customerFirst = [
   "Abraham",
   "Patrick",
 ];
+
 const customerLast = [
   "A",
   "B",
@@ -488,6 +576,7 @@ const customerLast = [
   "Y",
   "Z",
 ];
+
 const customerStates = [
   "AL",
   "AK",
@@ -540,11 +629,15 @@ const customerStates = [
   "WI",
   "WY",
 ];
-const customerQuantities = ["2", "3", "5"];
+const customerQuantities = ["1", "2", "4"];
+const customerQuantitiesChar = ["Single", "Double", "Triple"];
+const mode = ["Happy", "Relax", "Energy"];
 
 const Main = () => {
   const { toast } = useToast();
   const modalData = localStorage.getItem("isTakenFromModalData");
+
+  const [productList, setProductList] = useState<IProduct[]>([]);
 
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(
     window.innerWidth > 1024 ? productList[0] : null
@@ -566,9 +659,14 @@ const Main = () => {
       customerLast[Math.floor(Math.random() * customerLast.length)];
     const rStates =
       customerStates[Math.floor(Math.random() * customerStates.length)];
-    const rQuantities =
-      customerQuantities[Math.floor(Math.random() * customerQuantities.length)];
+    const num = Math.floor(Math.random() * customerQuantities.length);
+
+    const rQuantities = customerQuantities[num];
     const rAgo = Math.floor(Math.random() * 21) + 1;
+
+    const productImg = `./assets/${
+      mode[Math.floor(Math.random() * mode.length)]
+    } ${customerQuantitiesChar[num]}.png`;
 
     return {
       firstName: rCustomerFirst,
@@ -576,6 +674,7 @@ const Main = () => {
       state: rStates,
       quantity: rQuantities,
       ago: `${rAgo} minutes ago`,
+      productImg: productImg,
     };
   };
 
@@ -591,7 +690,7 @@ const Main = () => {
           <div className="flex items-center justify-center gap-4">
             <img
               className="w-16 h-auto"
-              src="product-fakesale.png"
+              src={customer.productImg}
               alt="Product"
             />
             <div className="custom-notification-content-wrapper">
@@ -603,9 +702,9 @@ const Main = () => {
                 <br />
                 Purchased
                 <strong>
-                  <span id="notify-quantity">{customer.quantity}</span>
+                  <span id="notify-quantity"> {customer.quantity}</span>
                 </strong>{" "}
-                Bottle(s) of TranquilVibe CBD Gummies{" "}
+                Bottle(s) of Purple Chapter THCA{" "}
                 <small>
                   <span id="notify-ago">{customer.ago}</span>
                 </small>
@@ -655,8 +754,8 @@ const Main = () => {
       <header>
         <p className="text-center text-sm pt-6 lg:pt-0 pl-14 lg:pl-0 pb-3 lg:pb-0">
           <span className="text-[#f00]">Warning:</span> Due to extremely high
-          media demand, there is limited supply of TranquilVibe CBD Gummies in
-          stock as of <span className="text-[#f00]">HURRY! {timeLeft}</span>
+          media demand, there is a limited supply of Purple Chapter THC-A Flower
+          in stock as of <span className="text-[#f00]">HURRY! {timeLeft}</span>
         </p>
       </header>
 
@@ -664,7 +763,11 @@ const Main = () => {
         <div className="max-w-[1000px]">
           <section className="w-full flex justify-between items-center py-6 flex-col lg:flex-row">
             <div className="">
-              <img className="w-[101px]" src="logo@2x.png" />
+              {/* site logo */}
+              <img
+                className="w-[151px]"
+                src="https://purplechapter.store/wp-content/uploads/2024/10/Purple-Chapter-Logo.svg"
+              />
             </div>
             {/* desktop */}
             <div className="items-center justify-end gap-2 hidden lg:flex">
@@ -717,7 +820,7 @@ const Main = () => {
             Individuals are remunerated.
           </p>
           <p className="text-center mb-10">
-            © TranquilVibe CBD Gummies. All Rights Reserved.
+            © Purple Chapter THCA. All Rights Reserved.
           </p>
         </div>
       </div>
@@ -738,6 +841,7 @@ const Main = () => {
                 {moods.map((mood, index) => (
                   <div
                     onClick={() => {
+                      setProductList(mood.productList);
                       setIsModalOpen(false);
                       // localStorage.setItem("isTakenFromModalData", "true");
                     }}

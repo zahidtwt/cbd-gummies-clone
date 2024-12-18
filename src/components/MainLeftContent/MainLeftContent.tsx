@@ -44,6 +44,11 @@ const MainLeftContent = ({
           Sell Out Risk:
           <span className="text-red-500"> HIGH</span>
         </p>
+        <p className="font-[500] leading-5 mt-2">
+          Our THCA Cannabis Is Carefully Cultivated By Our Master Growers
+          <br /> WARNING -
+          <span className="text-red-500">HIGH THC-A PRODUCT</span>
+        </p>
       </div>
 
       {productList.map((product) => (
