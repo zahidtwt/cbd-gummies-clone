@@ -91,11 +91,11 @@ const ProductCard = ({
             </div>
 
             {productData.showSavePrice && (
-              <div className="absolute left-[300px] top-8">
-                <img className="w-[130px]" src="package-save.svg" alt="" />
-                <div className="relative bottom-[94px] left-[0px] text-center">
-                  <h6 className="font-oswald text-[24px] leading-9">SAVE</h6>
-                  <p className="font-oswald text-[19px]">
+              <div className="absolute left-[330px] top-10 w-[90px]">
+                <img className="" src="package-save.svg" alt="" />
+                <div className="relative bottom-[68px] left-[0px] text-center">
+                  <h6 className="font-oswald text-[20px] leading-6">SAVE</h6>
+                  <p className="font-oswald text-[15px]">
                     {productData.savePrice}
                   </p>
                 </div>
